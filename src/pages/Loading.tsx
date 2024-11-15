@@ -9,7 +9,7 @@ function Loading() {
       exit={{ opacity: 0.5, background: "#FDFD96" }} // Fade out effect
       transition={{ duration: 0.5 }} // Duration of fade out
     >
-      Loading
+      Loading...
     </motion.div>
   );
 }

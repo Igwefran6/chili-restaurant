@@ -1,8 +1,10 @@
 import { Suspense } from "react";
 import Loading from "./Loading";
 import { motion } from "framer-motion";
+import Header from "../components/Header";
+import Hero from "../components/Hero";
 
-function HomePage() {
+const HomePage: React.FC = () => {
   return (
     <Suspense fallback={<Loading />}>
       <motion.div
@@ -11,10 +13,19 @@ function HomePage() {
         exit={{ opacity: 0.5 }}
         transition={{ duration: 0.5, ease: "anticipate" }}
       >
-        HomePage
+        <PageToRender />
       </motion.div>
     </Suspense>
   );
-}
+};
+
+const PageToRender: React.FC = () => {
+  return (
+    <>
+      <Header />
+      <Hero />
+    </>
+  );
+};
 
 export default HomePage;

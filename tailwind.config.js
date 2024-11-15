@@ -5,9 +5,9 @@ export default {
     extend: {
       colors: {
         brand: {
-          DEFAULT: "#D3544A", // Earthy sienna red
+          DEFAULT: "#9b111e", // Earthy sienna red
           light: "#E8766A", // Lighter, vibrant terracotta
-          dark: "#A53D34", // Deep warm red
+          dark: "#80091B", // Deep warm red
         },
         accent: {
           yellow: "#F8B400", // Warm golden yellow for highlights
@@ -17,7 +17,7 @@ export default {
         gray: {
           light: "#F0F0F0", // Soft light gray
           DEFAULT: "#C0C0C0", // Standard gray
-          dark: "#707070", // Deep neutral gray
+          dark: "#212121", // Deep neutral gray
         },
       },
     },
