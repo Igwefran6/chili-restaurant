@@ -24,7 +24,7 @@ const CTAButton: React.FC<{
       whileHover={{
         background: "linear-gradient(90deg, #F8B400, #FF8C00)", // Adjust gradient colors
       }}
-      whileTap={{ scale: 0.9, y: 4 }}
+      whileTap={{ scale: 0.8, y: 4 }}
       style={{
         background: disabled
           ? "#d3d3d3" // Disabled state background

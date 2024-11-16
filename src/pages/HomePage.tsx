@@ -3,6 +3,7 @@ import Loading from "./Loading";
 import { motion } from "framer-motion";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
+import Welcome from "../components/Welcome";
 
 const HomePage: React.FC = () => {
   return (
@@ -21,10 +22,11 @@ const HomePage: React.FC = () => {
 
 const PageToRender: React.FC = () => {
   return (
-    <>
+    <div className="poppins-regular overflow-hidden">
       <Header />
       <Hero />
-    </>
+      <Welcome />
+    </div>
   );
 };
 

@@ -18,6 +18,8 @@ export default {
           light: "#F0F0F0", // Soft light gray
           DEFAULT: "#C0C0C0", // Standard gray
           dark: "#212121", // Deep neutral gray
+          "translucent-light": "#F0F0F0cc",
+          "translucent-dark": "#212121cc",
         },
       },
     },
