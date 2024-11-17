@@ -2,10 +2,12 @@ import React, { ReactNode, useState } from "react";
 import CTAButton from "./CTAButton";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { LucideMenu, Search, ShoppingCart, User } from "lucide-react";
+import { Search, ShoppingCart, User } from "lucide-react";
 import SearchBar from "./SearchBar";
 import Cart from "./Cart";
 import { default as AppUser } from "./User";
+import { Divide as Hamburger } from "hamburger-react";
+import ToggleMenu from "./ToggleMenu";
 
 const LiIcons: React.FC<{
   element: ReactNode;
@@ -47,6 +49,7 @@ const Header: React.FC = () => {
   const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
   const [showCart, setShowCart] = useState<boolean>(false);
   const [showUser, setShowUser] = useState<boolean>(false);
+  const [isOpen, setOpen] = useState(false);
   const navigate = useNavigate();
   return (
     <div className="flex justify-between items-center py-4 px-16 bg-gray-light text-gray-dark no-copy sour-gummy-font z-50">
@@ -88,13 +91,21 @@ const Header: React.FC = () => {
             handleClick={() => navigate("/menu")}
           />
         </ul>
-        <div className="lg:hidden">
-          <LucideMenu />
-        </div>
+        <motion.div className="lg:hidden text-brand">
+          <Hamburger toggled={isOpen} size={20} toggle={setOpen} />
+        </motion.div>
       </div>
       {showSearchBar && <SearchBar setShowSearchBar={setShowSearchBar} />}
       {showCart && <Cart setShowCart={setShowCart} />}
       {showUser && <AppUser setShowUser={setShowUser} />}
+      {isOpen === true && (
+        <ToggleMenu
+          setShowSearchBar={setShowSearchBar}
+          setShowCart={setShowCart}
+          setShowUser={setShowUser}
+          setOpen={setOpen}
+        />
+      )}
     </div>
   );
 };

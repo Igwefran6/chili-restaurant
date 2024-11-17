@@ -127,22 +127,4 @@
   .no-copy {
     user-select: none;
   }
-  .scrolling-images-container {
-    display: flex;
-    gap: 16px;
-    animation: scroll-left 20s linear infinite;
-  }
-
-  .image-card {
-    flex-shrink: 0; /* Prevent images from shrinking */
-  }
-
-  @keyframes scroll-left {
-    0% {
-      transform: translateX(0); /* Start at the beginning */
-    }
-    100% {
-      transform: translateX(-100%); /* Move the entire container to the left */
-    }
-  }
 }

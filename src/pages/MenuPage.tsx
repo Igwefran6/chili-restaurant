@@ -1,40 +1,41 @@
 import React from "react";
 import { motion } from "framer-motion";
 import MainLayout from "../layouts/MainLayout";
+import { useShoppingContext } from "../hooks/useShoppingContext";
 
 const MenuPage: React.FC = () => {
   // Array of food items
   const menuItems = [
     {
-      id: 1,
+      id: "123e4567e89b12d3", // Unique ID
       name: "Spicy Chicken Wings",
       description: "Crispy chicken wings tossed in our signature spicy sauce.",
       price: 12.99,
       image: "/images/menu/spicy-chicken-wings.png",
     },
     {
-      id: 2,
+      id: "456f7891g23h45i6", // Unique ID
       name: "Classic Margherita Pizza",
       description: "Stone-baked pizza with fresh basil and mozzarella.",
       price: 15.99,
       image: "/images/menu/margherita-pizza.png",
     },
     {
-      id: 3,
+      id: "789j0123k67l89m0", // Unique ID
       name: "Creamy Alfredo Pasta",
       description: "Fettuccine pasta with a rich and creamy Alfredo sauce.",
       price: 14.99,
       image: "/images/menu/alfredo-pasta.png",
     },
     {
-      id: 4,
+      id: "234n5678o90p12q3", // Unique ID
       name: "Grilled Salmon",
       description: "Perfectly grilled salmon served with lemon butter sauce.",
       price: 19.99,
       image: "/images/menu/grilled-salmon.png",
     },
     {
-      id: 5,
+      id: "567r8901s34t56u7", // Unique ID
       name: "Caesar Salad",
       description: "Crisp romaine lettuce, croutons, and Caesar dressing.",
       price: 10.99,
@@ -52,6 +53,8 @@ const MenuPage: React.FC = () => {
     }),
     hover: { scale: 1.05, boxShadow: "0px 10px 20px rgba(0,0,0,0.1)" },
   };
+
+  const { dispatch } = useShoppingContext();
 
   return (
     <MainLayout>
@@ -104,11 +107,21 @@ const MenuPage: React.FC = () => {
               </h2>
               <p className="text-gray-600 text-sm">{item.description}</p>
               <div className="flex justify-between items-center mt-4">
-                <span className="text-lg font-bold text-green-600">
+                <span className="text-lg font-bold text-accent-green">
                   ${item.price.toFixed(2)}
                 </span>
                 <motion.button
                   whileHover={{ scale: 1.1 }}
+                  onClick={() => {
+                    const payloadItem = {
+                      id: item.id,
+                      name: item.name,
+                      price: item.price,
+                      image: item.image,
+                      quantity: 1,
+                    };
+                    dispatch({ type: "ADDTOCART", payload: payloadItem });
+                  }}
                   className="px-4 py-2 bg-brand text-white rounded-md shadow hover:bg-brand-dark focus:outline-none"
                 >
                   Add to cart

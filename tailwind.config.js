@@ -11,7 +11,7 @@ export default {
         },
         accent: {
           yellow: "#F8B400", // Warm golden yellow for highlights
-          green: "#6B8E23", // Olive green for natural balance
+          green: "#16a34a", // Olive green for natural balance
           beige: "#F5F5DC", // Neutral beige for backgrounds
         },
         gray: {

@@ -1,12 +1,13 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
+import { useShoppingContext } from "../hooks/useShoppingContext";
 
 interface CartItem {
-  id: number;
+  id: string;
   name: string;
   price: number;
-  image?: string;
+  image: string;
   quantity: number;
 }
 
@@ -16,22 +17,25 @@ const Cart: React.FC<{
   const placeholderImage = "https://via.placeholder.com/64";
 
   const [cartItems, setCartItems] = useState<CartItem[]>([
-    // {
-    //   id: 1,
-    //   name: "New Boots",
-    //   price: 120,
-    //   //  image: "/boots.jpg",
-    //   quantity: 1,
-    // },
-    // {
-    //   id: 2,
-    //   name: "Cozy Sweater with a Really Long Name That Should Be Truncated",
-    //   price: 60,
-    //   quantity: 2,
-    // },
+    {
+      id: "abc",
+      name: "New Boots",
+      price: 120,
+      image: "/images/food2.png",
+      quantity: 1,
+    },
+    {
+      id: "abcd",
+      name: "Cozy Sweater with a Really Long Name That Should Be Truncated",
+      price: 60,
+      quantity: 2,
+      image: "",
+    },
   ]);
 
-  const updateQuantity = (id: number, delta: number) => {
+  const { state } = useShoppingContext();
+
+  const updateQuantity = (id: string, delta: number) => {
     setCartItems((prev) =>
       prev.map((item) =>
         item.id === id
