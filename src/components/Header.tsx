@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { LucideMenu, Search, ShoppingCart, User } from "lucide-react";
 import SearchBar from "./SearchBar";
+import Cart from "./Cart";
+import { default as AppUser } from "./User";
 
 const LiIcons: React.FC<{
   element: ReactNode;
@@ -43,8 +45,10 @@ const LiNav: React.FC<{ label: string; path?: string }> = ({
 
 const Header: React.FC = () => {
   const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
+  const [showCart, setShowCart] = useState<boolean>(false);
+  const [showUser, setShowUser] = useState<boolean>(false);
   return (
-    <div className="flex justify-between items-center py-4 px-16 text-gray-dark no-copy sour-gummy-font">
+    <div className="flex justify-between items-center py-4 px-16 bg-gray-light text-gray-dark no-copy sour-gummy-font">
       <p className="hover:cursor-pointer protest-riot-regular text-brand">
         Chilli Restaurant
       </p>
@@ -60,10 +64,22 @@ const Header: React.FC = () => {
       {/* PC Nav */}
       <div>
         <ul className="hidden lg:flex  gap-4 items-center">
-          <LiIcons element={<User />} />
-          <LiIcons element={<ShoppingCart />} />
           <LiIcons
-            handleClick={() => setShowSearchBar((prev) => !prev)}
+            handleClick={() => {
+              setShowUser(true);
+              setShowCart(false);
+            }}
+            element={<User />}
+          />
+          <LiIcons
+            handleClick={() => {
+              setShowCart(true);
+              setShowUser(false);
+            }}
+            element={<ShoppingCart />}
+          />
+          <LiIcons
+            handleClick={() => setShowSearchBar(true)}
             element={<Search />}
           />
           <CTAButton label="Shop Online" />
@@ -73,6 +89,8 @@ const Header: React.FC = () => {
         </div>
       </div>
       {showSearchBar && <SearchBar setShowSearchBar={setShowSearchBar} />}
+      {showCart && <Cart setShowCart={setShowCart} />}
+      {showUser && <AppUser setShowUser={setShowUser} />}
     </div>
   );
 };
