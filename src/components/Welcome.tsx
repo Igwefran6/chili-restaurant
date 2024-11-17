@@ -36,7 +36,15 @@ const Welcome: React.FC = () => {
         whileHover={{ cursor: "pointer" }}
         className="lg:w-1/2 p-4 h-fit bg-accent-beige border shadow-xl rounded-lg"
       >
-        <img className="rounded-lg bg-cover" src="/images/food2.png" alt="" />
+        <div className="overflow-hidden rounded-lg">
+          <motion.img
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.5 }}
+            className="rounded-lg bg-cover"
+            src="/images/food2.png"
+            alt=""
+          />
+        </div>
       </motion.div>
     </div>
   );

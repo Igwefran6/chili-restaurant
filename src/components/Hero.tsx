@@ -1,5 +1,6 @@
 import React from "react";
 import CTAButton from "./CTAButton";
+import { motion } from "framer-motion";
 
 const Hero: React.FC = () => {
   return (
@@ -12,10 +13,24 @@ const Hero: React.FC = () => {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum,
           veritatis non maiores facere quae at.
         </p>
-        <CTAButton label="Order Now!" />
+        <motion.div
+          initial={{ x: -100 }}
+          whileInView={{ x: 0 }}
+          viewport={{ once: true }}
+        >
+          <CTAButton label="Order Now!" />
+        </motion.div>
       </div>
       <div className="grid place-items-center pb-16 lg:py-0">
-        <img className="" src="/images/food.png" alt="" />
+        <motion.img
+          initial={{ x: 50, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className=""
+          src="/images/food.png"
+          alt=""
+        />
       </div>
     </div>
   );

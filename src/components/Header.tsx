@@ -48,17 +48,17 @@ const Header: React.FC = () => {
   const [showCart, setShowCart] = useState<boolean>(false);
   const [showUser, setShowUser] = useState<boolean>(false);
   return (
-    <div className="flex justify-between items-center py-4 px-16 bg-gray-light text-gray-dark no-copy sour-gummy-font">
+    <div className="flex justify-between items-center py-4 px-16 bg-gray-light text-gray-dark no-copy sour-gummy-font z-50">
       <p className="hover:cursor-pointer protest-riot-regular text-brand">
         Chilli Restaurant
       </p>
       {/* PC Nav */}
       <nav>
         <ul className="hidden lg:flex  items-center gap-4">
-          <LiNav label="Home" />
-          <LiNav label="Menu" />
-          <LiNav label="About" />
-          <LiNav label="Reservation" />
+          <LiNav label="Home" path="/" />
+          <LiNav label="Menu" path="/menu" />
+          <LiNav label="About" path="/about" />
+          <LiNav label="Reservation" path="/reservation" />
         </ul>
       </nav>
       {/* PC Nav */}
