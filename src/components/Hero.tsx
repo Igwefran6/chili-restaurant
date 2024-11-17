@@ -1,8 +1,10 @@
 import React from "react";
 import CTAButton from "./CTAButton";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Hero: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div className="w-screen lg:h-[80vh] bg-gradient-to-r from-brand to-brand-dark flex flex-col lg:flex-row">
       <div className="lg:w-1/2 flex flex-col justify-center px-16 py-16 lg:py-0 gap-4">
@@ -18,7 +20,7 @@ const Hero: React.FC = () => {
           whileInView={{ x: 0 }}
           viewport={{ once: true }}
         >
-          <CTAButton label="Order Now!" />
+          <CTAButton label="Order Now!" handleClick={() => navigate("/menu")} />
         </motion.div>
       </div>
       <div className="grid place-items-center pb-16 lg:py-0">

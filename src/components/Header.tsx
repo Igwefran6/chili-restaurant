@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import CTAButton from "./CTAButton";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LucideMenu, Search, ShoppingCart, User } from "lucide-react";
 import SearchBar from "./SearchBar";
 import Cart from "./Cart";
@@ -47,6 +47,7 @@ const Header: React.FC = () => {
   const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
   const [showCart, setShowCart] = useState<boolean>(false);
   const [showUser, setShowUser] = useState<boolean>(false);
+  const navigate = useNavigate();
   return (
     <div className="flex justify-between items-center py-4 px-16 bg-gray-light text-gray-dark no-copy sour-gummy-font z-50">
       <p className="hover:cursor-pointer protest-riot-regular text-brand">
@@ -82,7 +83,10 @@ const Header: React.FC = () => {
             handleClick={() => setShowSearchBar(true)}
             element={<Search />}
           />
-          <CTAButton label="Shop Online" />
+          <CTAButton
+            label="Shop Online"
+            handleClick={() => navigate("/menu")}
+          />
         </ul>
         <div className="lg:hidden">
           <LucideMenu />

@@ -23,7 +23,7 @@ const Reservation: React.FC = () => {
         <motion.div className="w-1/2 h-full grid-cols-2 p-8 gap-4 place-items-center hidden lg:grid">
           <motion.div
             initial={{ scale: 0, rotate: 0 }}
-            whileInView={{ scale: 1.1, rotate: -8 }}
+            whileInView={{ scale: 1.2, rotate: -8 }}
             transition={{ delay: 0.4 }}
             viewport={{ once: true }}
             className="bg-white overflow-hidden h-64 w-64 rounded shadow"
@@ -38,7 +38,7 @@ const Reservation: React.FC = () => {
             />
           </motion.div>
           <motion.div
-            initial={{ scale: 1.4, rotate: 0 }}
+            initial={{ scale: 1.5, rotate: 0 }}
             whileInView={{ scale: 1, rotate: 16 }}
             transition={{ delay: 0.2 }}
             className="bg-white overflow-hidden h-64 w-64 rounded shadow"
@@ -69,7 +69,7 @@ const Reservation: React.FC = () => {
           </motion.div>
           <motion.div
             initial={{ rotate: 0 }}
-            whileInView={{ scale: 0.9, rotate: 45 }}
+            whileInView={{ scale: 0.9, rotate: 35 }}
             transition={{ delay: 0.8 }}
             className="bg-white overflow-hidden h-64 w-64 rounded shadow z-10"
           >

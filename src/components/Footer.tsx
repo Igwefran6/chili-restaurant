@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 const Footer: React.FC = () => {
   const links = [

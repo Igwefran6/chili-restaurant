@@ -6,7 +6,7 @@ const P: React.FC<{ text: string }> = ({ text }) => {
 
 const Welcome: React.FC = () => {
   return (
-    <div className="flex flex-col lg:flex-row gap-4 items-center p-14 lg:px-48 py-16 bg-accent-beige">
+    <div className="flex flex-col lg:flex-row gap-4 items-center p-14 lg:px-48 py-16 bg-gradient-to-br from-orange-100 via-white to-yellow-50 z-0">
       <motion.div
         initial={{ x: -100, opacity: 0.5 }}
         whileInView={{ x: 0, opacity: 1 }}

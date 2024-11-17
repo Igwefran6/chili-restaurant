@@ -111,7 +111,7 @@ const MenuPage: React.FC = () => {
                   whileHover={{ scale: 1.1 }}
                   className="px-4 py-2 bg-brand text-white rounded-md shadow hover:bg-brand-dark focus:outline-none"
                 >
-                  Order Now
+                  Add to cart
                 </motion.button>
               </div>
             </motion.div>

@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import Hero from "../components/Hero";
 import Welcome from "../components/Welcome";
 import MainLayout from "../layouts/MainLayout";
+import ScrollingImageGrid from "../components/ScrollingImageGrid";
+import Chefs from "../components/Chef";
 
 const HomePage: React.FC = () => {
   return (
@@ -26,6 +28,10 @@ const PageToRender: React.FC = () => {
       <MainLayout>
         <Hero />
         <Welcome />
+        <div className="bg-gradient-to-br from-gray-100 to-gray-200">
+          <Chefs />
+          <ScrollingImageGrid />
+        </div>
       </MainLayout>
     </div>
   );
