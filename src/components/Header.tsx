@@ -8,6 +8,7 @@ import Cart from "./Cart";
 import { default as AppUser } from "./User";
 import { Divide as Hamburger } from "hamburger-react";
 import ToggleMenu from "./ToggleMenu";
+import { useShoppingContext } from "../hooks/useShoppingContext";
 
 const LiIcons: React.FC<{
   element: ReactNode;
@@ -50,6 +51,7 @@ const Header: React.FC = () => {
   const [showCart, setShowCart] = useState<boolean>(false);
   const [showUser, setShowUser] = useState<boolean>(false);
   const [isOpen, setOpen] = useState(false);
+  const { state } = useShoppingContext();
   const navigate = useNavigate();
   return (
     <div className="flex justify-between items-center py-4 px-16 bg-gray-light text-gray-dark no-copy sour-gummy-font z-50">
@@ -67,7 +69,7 @@ const Header: React.FC = () => {
       </nav>
       {/* PC Nav */}
       <div>
-        <ul className="hidden lg:flex  gap-4 items-center">
+        <ul className="hidden lg:flex gap-4 items-center">
           <LiIcons
             handleClick={() => {
               setShowUser(true);
@@ -80,7 +82,22 @@ const Header: React.FC = () => {
               setShowCart(true);
               setShowUser(false);
             }}
-            element={<ShoppingCart />}
+            element={
+              <div className="relative">
+                <ShoppingCart />{" "}
+                {state.length > 0 && (
+                  <motion.span
+                    animate={{ scale: 1.2 }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 0.5,
+                      ease: "circInOut",
+                    }}
+                    className="absolute w-2 h-2 rounded-full -top-1 -right-1 bg-brand"
+                  />
+                )}
+              </div>
+            }
           />
           <LiIcons
             handleClick={() => setShowSearchBar(true)}

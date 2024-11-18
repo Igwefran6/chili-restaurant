@@ -17,7 +17,7 @@ const SearchBar: React.FC<{
         <input
           className="py-2 px-4 text-2xl w-full bg-transparent border-b-2 border-gray-dark focus:border-b-2 focus:outline-none text-gray-dark"
           type="text"
-          placeholder="Search..."
+          placeholder="Search dish..."
         />
         <motion.button
           whileHover={{ scale: 0.8 }}

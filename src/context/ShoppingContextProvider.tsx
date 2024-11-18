@@ -34,7 +34,7 @@ const Reducer = (state: StateType, action: Action): StateType => {
       if (existingItemIndex >= 0) {
         // Update quantity for existing item
         const updatedState = [...state];
-        updatedState[existingItemIndex].quantity += action.payload.quantity;
+        updatedState[existingItemIndex].quantity = action.payload.quantity;
         return updatedState;
       } else {
         // Add new item to the cart

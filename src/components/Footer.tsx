@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-orange-100 via-white to-yellow-50 text-gray-700 pt-12 pb-6 z-50">
+    <footer className="bg-gradient-to-br from-orange-100 via-white to-yellow-50 text-gray-700 pt-12 pb-6 z-40">
       {/* Top Section */}
       <div className="container mx-auto px-8 sm:px-16 lg:px-32 flex flex-wrap justify-between items-start gap-8">
         {/* About Section */}

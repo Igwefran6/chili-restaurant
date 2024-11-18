@@ -1,41 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import MainLayout from "../layouts/MainLayout";
 import { useShoppingContext } from "../hooks/useShoppingContext";
 
 const MenuPage: React.FC = () => {
-  // Array of food items
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupLabel, setPopupLabel] = useState("");
+  const { state, dispatch } = useShoppingContext();
+
   const menuItems = [
     {
-      id: "123e4567e89b12d3", // Unique ID
+      id: "123e4567e89b12d3",
       name: "Spicy Chicken Wings",
       description: "Crispy chicken wings tossed in our signature spicy sauce.",
       price: 12.99,
       image: "/images/menu/spicy-chicken-wings.png",
     },
     {
-      id: "456f7891g23h45i6", // Unique ID
+      id: "456f7891g23h45i6",
       name: "Classic Margherita Pizza",
       description: "Stone-baked pizza with fresh basil and mozzarella.",
       price: 15.99,
       image: "/images/menu/margherita-pizza.png",
     },
     {
-      id: "789j0123k67l89m0", // Unique ID
+      id: "789j0123k67l89m0",
       name: "Creamy Alfredo Pasta",
       description: "Fettuccine pasta with a rich and creamy Alfredo sauce.",
       price: 14.99,
       image: "/images/menu/alfredo-pasta.png",
     },
     {
-      id: "234n5678o90p12q3", // Unique ID
+      id: "234n5678o90p12q3",
       name: "Grilled Salmon",
       description: "Perfectly grilled salmon served with lemon butter sauce.",
       price: 19.99,
       image: "/images/menu/grilled-salmon.png",
     },
     {
-      id: "567r8901s34t56u7", // Unique ID
+      id: "567r8901s34t56u7",
       name: "Caesar Salad",
       description: "Crisp romaine lettuce, croutons, and Caesar dressing.",
       price: 10.99,
@@ -43,7 +46,7 @@ const MenuPage: React.FC = () => {
     },
   ];
 
-  // Framer Motion animation variants
+  // Animation variants for cards
   const cardAnimation = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
@@ -54,26 +57,55 @@ const MenuPage: React.FC = () => {
     hover: { scale: 1.05, boxShadow: "0px 10px 20px rgba(0,0,0,0.1)" },
   };
 
-  const { dispatch } = useShoppingContext();
+  // Animation variant for popup
+  const popupAnimation = {
+    hidden: { opacity: 0, y: 50, x: "50%" },
+    visible: { opacity: 1, y: 0, x: "50%" },
+  };
+
+  useEffect(() => {
+    if (showPopup) {
+      const timer = setTimeout(() => setShowPopup(false), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [showPopup]);
+
+  const handleAddToCart = (item: (typeof menuItems)[0]) => {
+    const payloadItem = { ...item, quantity: 1 };
+    const exists = state.some((cartItem) => cartItem.id === payloadItem.id);
+
+    setPopupLabel(exists ? "Already in cart" : "Added to cart");
+    if (!exists) dispatch({ type: "ADDTOCART", payload: payloadItem });
+    setShowPopup(true);
+  };
 
   return (
     <MainLayout>
       <div className="min-h-screen bg-gradient-to-br from-orange-100 via-white to-yellow-50 p-8 poppins-regular">
+        {/* Popup Notification */}
+        <motion.span
+          initial="hidden"
+          animate={showPopup ? "visible" : "hidden"}
+          variants={popupAnimation}
+          className="fixed bottom-4 right-1/2 z-40 bg-accent-green text-gray-light py-1 px-2 rounded-lg"
+        >
+          {popupLabel}
+        </motion.span>
+
+        {/* Page Header */}
         <div className="text-center pb-16">
           <motion.h1
             initial={{ y: -100, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
+            animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1 }}
-            viewport={{ once: true }}
             className="text-5xl font-bold text-brand mb-6"
           >
             Our Menu
           </motion.h1>
           <motion.p
             initial={{ x: -100, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 2 }}
-            viewport={{ once: true }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1 }}
             className="text-lg text-gray-600 leading-8 max-w-3xl mx-auto"
           >
             Explore our delicious selection of dishes, made with the freshest
@@ -81,7 +113,7 @@ const MenuPage: React.FC = () => {
           </motion.p>
         </div>
 
-        {/* Menu Items Section */}
+        {/* Menu Items */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {menuItems.map((item, index) => (
             <motion.div
@@ -90,15 +122,16 @@ const MenuPage: React.FC = () => {
               initial="hidden"
               whileInView="visible"
               whileHover="hover"
+              viewport={{ once: true }}
               custom={index}
               variants={cardAnimation}
             >
               {/* Image */}
               <motion.div
                 className="h-40 w-full bg-cover bg-center rounded-lg mb-4"
-                style={{
-                  backgroundImage: `url(${item.image})`,
-                }}
+                style={{ backgroundImage: `url(${item.image})` }}
+                role="img"
+                aria-label={item.name}
               ></motion.div>
 
               {/* Info */}
@@ -112,17 +145,9 @@ const MenuPage: React.FC = () => {
                 </span>
                 <motion.button
                   whileHover={{ scale: 1.1 }}
-                  onClick={() => {
-                    const payloadItem = {
-                      id: item.id,
-                      name: item.name,
-                      price: item.price,
-                      image: item.image,
-                      quantity: 1,
-                    };
-                    dispatch({ type: "ADDTOCART", payload: payloadItem });
-                  }}
+                  onClick={() => handleAddToCart(item)}
                   className="px-4 py-2 bg-brand text-white rounded-md shadow hover:bg-brand-dark focus:outline-none"
+                  aria-label={`Add ${item.name} to cart`}
                 >
                   Add to cart
                 </motion.button>

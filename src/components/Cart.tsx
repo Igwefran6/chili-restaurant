@@ -1,51 +1,38 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { motion } from "framer-motion";
-import { X } from "lucide-react";
+import { X, XCircle } from "lucide-react";
 import { useShoppingContext } from "../hooks/useShoppingContext";
-
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-}
 
 const Cart: React.FC<{
   setShowCart: Dispatch<SetStateAction<boolean>>;
 }> = ({ setShowCart }) => {
   const placeholderImage = "https://via.placeholder.com/64";
 
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: "abc",
-      name: "New Boots",
-      price: 120,
-      image: "/images/food2.png",
-      quantity: 1,
-    },
-    {
-      id: "abcd",
-      name: "Cozy Sweater with a Really Long Name That Should Be Truncated",
-      price: 60,
-      quantity: 2,
-      image: "",
-    },
-  ]);
-
-  const { state } = useShoppingContext();
+  const { state, dispatch } = useShoppingContext();
 
   const updateQuantity = (id: string, delta: number) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
+    const itemIndex = state.findIndex((item) => item.id === id);
+
+    if (itemIndex !== -1) {
+      const updatedState = state.map((item, index) =>
+        index === itemIndex
+          ? {
+              ...item,
+              quantity: Math.max(item.quantity + delta, 1), // Ensure quantity is at least 1
+            }
           : item
-      )
-    );
+      );
+
+      console.log(updatedState[itemIndex]);
+      dispatch({ type: "ADDTOCART", payload: updatedState[itemIndex] });
+    } else {
+      console.warn(`Item with id ${id} not found.`);
+    }
   };
 
-  const totalPrice = cartItems.reduce(
+  useEffect(() => {}, []);
+
+  const totalPrice = state.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
@@ -58,14 +45,22 @@ const Cart: React.FC<{
       transition={{ duration: 0.5 }}
     >
       <h2 className="text-lg font-bold text-gray-700 mb-4">Your Cart</h2>
-      {cartItems.length > 0 ? (
+      {state.length > 0 ? (
         <>
           <div className="flex-1 overflow-y-auto space-y-4">
-            {cartItems.map((item) => (
+            {state.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between p-3 bg-white rounded shadow-sm hover:shadow-md"
+                className="flex items-center justify-between p-3 bg-white rounded shadow-sm hover:shadow-md relative"
               >
+                <span
+                  onClick={() =>
+                    dispatch({ type: "REMOVEFROMCART", payload: item.id })
+                  }
+                  className="absolute right-1 top-1 text-brand hover:cursor-pointer opacity-95"
+                >
+                  <XCircle size={18} />
+                </span>
                 <img
                   src={item.image || placeholderImage}
                   alt={item.name}
@@ -74,7 +69,7 @@ const Cart: React.FC<{
                 <div className="flex-1 ml-3 min-w-0">
                   {/* Constrain the name container */}
                   <h3
-                    className="text-sm font-semibold truncate"
+                    className="text-[11px] font-semibold truncate"
                     title={item.name} // Tooltip shows full name on hover
                   >
                     {item.name}
