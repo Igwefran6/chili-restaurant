@@ -87,7 +87,7 @@ const MenuPage: React.FC = () => {
           initial="hidden"
           animate={showPopup ? "visible" : "hidden"}
           variants={popupAnimation}
-          className="fixed bottom-4 right-1/2 z-40 bg-accent-green text-gray-light py-1 px-2 rounded-lg"
+          className="fixed bottom-4 right-1/2 bg-accent-green text-gray-light py-1 px-2 rounded-lg z-50"
         >
           {popupLabel}
         </motion.span>

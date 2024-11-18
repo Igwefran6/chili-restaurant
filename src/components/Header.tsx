@@ -18,8 +18,8 @@ const LiIcons: React.FC<{
     <>
       <motion.li
         onClick={handleClick}
-        whileHover={{ scale: 0.9, opacity: 0.8, y: 4, cursor: "pointer" }}
-        whileTap={{ scale: 0.5 }}
+        whileHover={{ opacity: 0.8, y: 4, cursor: "pointer" }}
+        whileTap={{ scale: 0.8 }}
         className="rounded-full "
       >
         {element}
@@ -35,7 +35,6 @@ const LiNav: React.FC<{ label: string; path?: string }> = ({
     <>
       <motion.li
         whileHover={{
-          scale: 0.9,
           opacity: 0.8,
           y: 4,
         }}

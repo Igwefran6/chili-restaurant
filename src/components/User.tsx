@@ -23,6 +23,14 @@ const User: React.FC<{
       >
         <X size={20} />
       </motion.div>
+      {/* Logout button */}
+      <motion.div
+        whileHover={{ scale: 0.8, cursor: "pointer" }}
+        whileTap={{ scale: 0.5 }}
+        className="absolute top-4 left-4"
+      >
+        logout
+      </motion.div>
 
       {/* Profile Section */}
       <div className="flex flex-col items-center mt-10">
