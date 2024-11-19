@@ -26,7 +26,9 @@ const Chefs: React.FC = () => {
 
   return (
     <div className="py-16 z-10">
-      <h2 className="text-center text-3xl font-bold mb-8">Meet Our Chefs</h2>
+      <h2 className="text-center text-3xl font-bold mb-8 text-brand">
+        Meet Our Chefs
+      </h2>
       <div className="flex justify-center gap-16 flex-wrap">
         {chefs.map((chef, index) => (
           <motion.div
@@ -43,7 +45,7 @@ const Chefs: React.FC = () => {
               className="w-full h-64 object-cover"
             />
             <div className="p-4">
-              <h3 className="text-xl font-semibold">{chef.name}</h3>
+              <h3 className="text-xl font-semibold text-brand">{chef.name}</h3>
               <p className="text-gray-600">{chef.role}</p>
               <p className="mt-2 text-gray-500">{chef.description}</p>
             </div>

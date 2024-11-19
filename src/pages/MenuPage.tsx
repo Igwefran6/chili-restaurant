@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import MainLayout from "../layouts/MainLayout";
 import { useShoppingContext } from "../hooks/useShoppingContext";
+import ScrollingImageGrid from "../components/ScrollingImageGrid";
 
 const MenuPage: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -155,6 +156,7 @@ const MenuPage: React.FC = () => {
             </motion.div>
           ))}
         </div>
+        <ScrollingImageGrid />
       </div>
     </MainLayout>
   );
