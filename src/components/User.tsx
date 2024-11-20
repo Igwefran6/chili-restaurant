@@ -9,7 +9,7 @@ const User: React.FC<{
 
   return (
     <motion.div
-      className="fixed lg:right-8 right-1/2 top-1/2 translate-x-1/2 lg:translate-x-0 -translate-y-1/2 lg:rotate-3 z-40 shadow-lg lg:rounded-lg bg-gray-light w-screen h-screen lg:w-80 lg:h-[520px] p-4 flex flex-col"
+      className="fixed lg:right-8 right-1/2 top-1/2 translate-x-1/2 lg:translate-x-0 -translate-y-1/2 lg:rotate-3 z-40 shadow-lg lg:rounded-lg bg-gray-light w-svw h-svh lg:w-80 lg:h-[520px] p-4 flex flex-col"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}

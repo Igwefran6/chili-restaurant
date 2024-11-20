@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { motion } from "framer-motion";
 import MainLayout from "../layouts/MainLayout";
+import { ImageLoader } from "../utils/ImageLoader";
+import Loading from "./Loading";
 
-const Reservation: React.FC = () => {
+const PageToRender: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -11,78 +13,47 @@ const Reservation: React.FC = () => {
   const [guests, setGuests] = useState(1);
   const [specialRequests, setSpecialRequests] = useState("");
 
+  const images = [
+    { src: "/images/reservation/1.png", scale: 1.2, rotate: -8, delay: 0.4 },
+    { src: "/images/reservation/2.png", scale: 1, rotate: 16, delay: 0.2 },
+    { src: "/images/reservation/3.png", scale: 0.9, rotate: 35, delay: 0.8 },
+    { src: "/images/reservation/4.png", scale: 1, rotate: 8, delay: 0 },
+  ];
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Logic to submit the reservation (could be an API call)
     alert("Reservation submitted!");
   };
 
   return (
     <MainLayout>
-      <div className="flex flex-col lg:flex-row justify-center items-center gap-8 p-8 lg:p-16  bg-gradient-to-br from-orange-100 via-white to-yellow-50 min-h-screen">
+      <div className="flex flex-col lg:flex-row justify-center items-center gap-8 p-8 lg:p-16 bg-gradient-to-br from-orange-100 via-white to-yellow-50 min-h-screen">
+        {/* Images Grid */}
         <motion.div className="w-1/2 h-full grid-cols-2 p-8 gap-4 place-items-center hidden lg:grid">
-          <motion.div
-            initial={{ scale: 0, rotate: 0 }}
-            whileInView={{ scale: 1.2, rotate: -8 }}
-            transition={{ delay: 0.4 }}
-            viewport={{ once: true }}
-            className="bg-white overflow-hidden h-64 w-64 rounded shadow"
-          >
-            {" "}
-            <motion.img
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.5 }}
-              className="bg-cover rounded-xl h-full w-full border-white border-8"
-              src="/images/reservation/1.png"
-              alt=""
-            />
-          </motion.div>
-          <motion.div
-            initial={{ scale: 1.5, rotate: 0 }}
-            whileInView={{ scale: 1, rotate: 16 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white overflow-hidden h-64 w-64 rounded shadow"
-          >
-            {" "}
-            <motion.img
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.5 }}
-              className="bg-cover rounded-xl h-full w-full border-white border-8"
-              src="/images/reservation/2.png"
-              alt=""
-            />
-          </motion.div>
-          <motion.div
-            initial={{ scale: 0.5, rotate: 0 }}
-            whileInView={{ scale: 1, rotate: 8 }}
-            transition={{ delay: 0 }}
-            className="bg-white overflow-hidden h-64 w-64 rounded shadow z-20"
-          >
-            {" "}
-            <motion.img
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.5 }}
-              className="bg-cover rounded-xl h-full w-full border-white border-8"
-              src="/images/reservation/4.png"
-              alt=""
-            />
-          </motion.div>
-          <motion.div
-            initial={{ rotate: 0 }}
-            whileInView={{ scale: 0.9, rotate: 35 }}
-            transition={{ delay: 0.8 }}
-            className="bg-white overflow-hidden h-64 w-64 rounded shadow z-10"
-          >
-            {" "}
-            <motion.img
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.5 }}
-              className="bg-cover rounded-xl h-full w-full border-white border-8"
-              src="/images/reservation/3.png"
-              alt=""
-            />
-          </motion.div>
+          {images.map((image, index) => {
+            ImageLoader(image.src);
+            return (
+              <motion.div
+                key={index}
+                initial={{ scale: 0, rotate: 0 }}
+                whileInView={{ scale: image.scale, rotate: image.rotate }}
+                transition={{ delay: image.delay }}
+                viewport={{ once: true }}
+                className="bg-white overflow-hidden h-64 w-64 rounded shadow"
+              >
+                <motion.img
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-cover rounded-xl h-full w-full border-white border-8"
+                  src={image.src}
+                  alt={`Reservation Image ${index + 1}`}
+                />
+              </motion.div>
+            );
+          })}
         </motion.div>
+
+        {/* Reservation Form */}
         <motion.div
           initial={{ opacity: 0, y: 200 }}
           animate={{ opacity: 1, y: 0 }}
@@ -245,4 +216,12 @@ const Reservation: React.FC = () => {
   );
 };
 
-export default Reservation;
+function ReservationPage() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <PageToRender />
+    </Suspense>
+  );
+}
+
+export default ReservationPage;

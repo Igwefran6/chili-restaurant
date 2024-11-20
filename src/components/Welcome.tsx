@@ -1,10 +1,16 @@
 import { motion } from "framer-motion";
+import { ImageLoader } from "../utils/ImageLoader";
 
 const P: React.FC<{ text: string }> = ({ text }) => {
   return <p className="opacity-90 lg:pr-8">{text}</p>;
 };
 
-const Welcome: React.FC = () => {
+interface ImageDisplayProps {
+  src: string;
+  alt?: string;
+}
+const Welcome: React.FC<ImageDisplayProps> = ({ src }) => {
+  ImageLoader(src);
   return (
     <div className="flex flex-col lg:flex-row gap-4 items-center p-14 lg:px-48 py-16 bg-gradient-to-br from-orange-100 via-white to-yellow-50 z-0">
       <motion.div
@@ -41,7 +47,7 @@ const Welcome: React.FC = () => {
             whileHover={{ scale: 1.1 }}
             transition={{ duration: 0.5 }}
             className="rounded-lg bg-cover"
-            src="/images/food2.png"
+            src={src}
             alt=""
           />
         </div>

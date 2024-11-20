@@ -8,7 +8,7 @@ import {
   User,
   Utensils,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Dispatch, SetStateAction, useState } from "react";
 
 const ToggleMenu: React.FC<{
@@ -18,6 +18,7 @@ const ToggleMenu: React.FC<{
   setOpen: Dispatch<SetStateAction<boolean>>;
 }> = ({ setShowSearchBar, setShowCart, setShowUser, setOpen }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
   const menuItems = [
     { icon: <Home />, label: "Home", path: "/" },
@@ -25,6 +26,12 @@ const ToggleMenu: React.FC<{
     { icon: <ChefHat />, label: "About Us", path: "/about" },
     { icon: <List />, label: "Make Reservation", path: "/reservation" },
   ];
+
+  const handleNavigation = (path: string) => {
+    setTimeout(() => {
+      navigate(path); // Delay navigation by 500ms
+    }, 500);
+  };
 
   return (
     <motion.div
@@ -41,10 +48,13 @@ const ToggleMenu: React.FC<{
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 + index * 0.2 }}
             className="flex items-center gap-2 w-fit relative cursor-pointer"
-            onClick={() => setActiveIndex(index)}
+            onClick={() => {
+              setActiveIndex(index);
+              handleNavigation(item.path); // Trigger delayed navigation
+            }}
           >
             {item.icon}
-            <Link to={item.path}>{item.label}</Link>
+            <span>{item.label}</span> {/* Replace Link with span */}
             {/* Animated border */}
             <motion.div
               initial={{ scaleX: 0 }}
@@ -64,7 +74,7 @@ const ToggleMenu: React.FC<{
           className="border-t-4 flex gap-4 my-2 py-4"
         >
           <motion.li
-            whileTap={{ scale: 0.5 }}
+            whileTap={{ scale: 0.8 }}
             onClick={() => {
               setShowUser(true);
               setOpen(false);
@@ -73,7 +83,7 @@ const ToggleMenu: React.FC<{
             <User />
           </motion.li>
           <motion.li
-            whileTap={{ scale: 0.5 }}
+            whileTap={{ scale: 0.8 }}
             onClick={() => {
               setShowCart(true);
               setOpen(false);
@@ -82,7 +92,7 @@ const ToggleMenu: React.FC<{
             <ShoppingCart />
           </motion.li>
           <motion.li
-            whileTap={{ scale: 0.5 }}
+            whileTap={{ scale: 0.8 }}
             onClick={() => {
               setShowSearchBar(true);
               setOpen(false);

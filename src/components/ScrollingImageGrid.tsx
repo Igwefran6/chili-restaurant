@@ -1,9 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Marquee from "react-fast-marquee";
+import { ImageLoader } from "../utils/ImageLoader";
 
 const ScrollingImageGrid: React.FC = () => {
-  // Array of images with their src and style classes
+  // Array of images with their src
   const images = [
     { src: "/images/grid/1.png" },
     { src: "/images/grid/2.png" },
@@ -27,6 +28,9 @@ const ScrollingImageGrid: React.FC = () => {
     >
       <Marquee gradient={false} speed={50} style={{ overflow: "hidden" }}>
         {images.map((image, index) => {
+          // Suspends rendering until the image is preloaded
+          ImageLoader(image.src);
+
           return (
             <div
               key={index}

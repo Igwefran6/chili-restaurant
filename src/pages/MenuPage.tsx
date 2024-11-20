@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import MainLayout from "../layouts/MainLayout";
 import { useShoppingContext } from "../hooks/useShoppingContext";
 import ScrollingImageGrid from "../components/ScrollingImageGrid";
+import Loading from "./Loading";
+import { ImageLoader } from "../utils/ImageLoader";
 
-const MenuPage: React.FC = () => {
+const PageToRender: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupLabel, setPopupLabel] = useState("");
   const { state, dispatch } = useShoppingContext();
@@ -116,50 +118,61 @@ const MenuPage: React.FC = () => {
 
         {/* Menu Items */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {menuItems.map((item, index) => (
-            <motion.div
-              key={item.id}
-              className="bg-white rounded-lg shadow-md p-4 hover:cursor-pointer"
-              initial="hidden"
-              whileInView="visible"
-              whileHover="hover"
-              viewport={{ once: true }}
-              custom={index}
-              variants={cardAnimation}
-            >
-              {/* Image */}
+          {menuItems.map((item, index) => {
+            ImageLoader(item.image);
+            return (
               <motion.div
-                className="h-40 w-full bg-cover bg-center rounded-lg mb-4"
-                style={{ backgroundImage: `url(${item.image})` }}
-                role="img"
-                aria-label={item.name}
-              ></motion.div>
+                key={item.id}
+                className="bg-white rounded-lg shadow-md p-4 hover:cursor-pointer"
+                initial="hidden"
+                whileInView="visible"
+                whileHover="hover"
+                viewport={{ once: true }}
+                custom={index}
+                variants={cardAnimation}
+              >
+                {/* Image */}
+                <motion.div
+                  className="h-40 w-full bg-cover bg-center rounded-lg mb-4"
+                  style={{ backgroundImage: `url(${item.image})` }}
+                  role="img"
+                  aria-label={item.name}
+                ></motion.div>
 
-              {/* Info */}
-              <h2 className="text-2xl font-semibold text-brand mb-2">
-                {item.name}
-              </h2>
-              <p className="text-gray-600 text-sm">{item.description}</p>
-              <div className="flex justify-between items-center mt-4">
-                <span className="text-lg font-bold text-accent-green">
-                  ${item.price.toFixed(2)}
-                </span>
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  onClick={() => handleAddToCart(item)}
-                  className="px-4 py-2 bg-brand text-white rounded-md shadow hover:bg-brand-dark focus:outline-none"
-                  aria-label={`Add ${item.name} to cart`}
-                >
-                  Add to cart
-                </motion.button>
-              </div>
-            </motion.div>
-          ))}
+                {/* Info */}
+                <h2 className="text-2xl font-semibold text-brand mb-2">
+                  {item.name}
+                </h2>
+                <p className="text-gray-600 text-sm">{item.description}</p>
+                <div className="flex justify-between items-center mt-4">
+                  <span className="text-lg font-bold text-accent-green">
+                    ${item.price.toFixed(2)}
+                  </span>
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    onClick={() => handleAddToCart(item)}
+                    className="px-4 py-2 bg-brand text-white rounded-md shadow hover:bg-brand-dark focus:outline-none"
+                    aria-label={`Add ${item.name} to cart`}
+                  >
+                    Add to cart
+                  </motion.button>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
         <ScrollingImageGrid />
       </div>
     </MainLayout>
   );
 };
+
+function MenuPage() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <PageToRender />
+    </Suspense>
+  );
+}
 
 export default MenuPage;

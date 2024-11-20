@@ -30,7 +30,7 @@ const Counter: React.FC = () => {
   };
 
   return (
-    <div className="bg-[url('/images/restaurant.png')] bg-cover bg-fixed flex flex-col items-center justify-center space-y-8 py-16">
+    <div className="bg-fixed flex flex-col items-center justify-center space-y-8 py-16">
       <h2 className="text-4xl font-bold text-center mb-8 text-brand">
         Achievements
       </h2>

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { motion } from "framer-motion";
 import MainLayout from "../layouts/MainLayout";
+import Loading from "./Loading";
+import { ImageLoader } from "../utils/ImageLoader";
 
-const AboutPage: React.FC = () => {
+const PageToRender: React.FC = () => {
   // Define float animation as a variant
   const floatVariant = {
     float: {
@@ -26,6 +28,14 @@ const AboutPage: React.FC = () => {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } },
   };
+
+  // Image sources array
+  const imageLinks = [
+    "/images/reservation/1.png",
+    "/images/reservation/2.png",
+    "/images/reservation/3.png",
+    "/images/reservation/4.png",
+  ];
 
   return (
     <MainLayout>
@@ -66,49 +76,21 @@ const AboutPage: React.FC = () => {
           viewport={{ once: true }}
           className="relative flex flex-wrap justify-center gap-8 mt-12 px-8"
         >
-          {/* Image 1 */}
-          <motion.div
-            variants={floatVariant}
-            animate="float"
-            whileHover={hoverEffect}
-            className="w-40 h-40 sm:w-52 sm:h-52 rounded-full shadow-lg bg-cover bg-center "
-            style={{
-              backgroundImage: "url('/images/reservation/1.png')",
-            }}
-          ></motion.div>
-
-          {/* Image 2 */}
-          <motion.div
-            variants={floatVariant}
-            animate="float"
-            whileHover={hoverEffect}
-            className="w-40 h-40 sm:w-52 sm:h-52 rounded-full shadow-lg bg-cover bg-center"
-            style={{
-              backgroundImage: "url('/images/reservation/2.png')",
-            }}
-          ></motion.div>
-
-          {/* Image 3 */}
-          <motion.div
-            variants={floatVariant}
-            animate="float"
-            whileHover={hoverEffect}
-            className="w-40 h-40 sm:w-52 sm:h-52 rounded-full shadow-lg bg-cover bg-center"
-            style={{
-              backgroundImage: "url('/images/reservation/3.png')",
-            }}
-          ></motion.div>
-
-          {/* Image 4 */}
-          <motion.div
-            variants={floatVariant}
-            animate="float"
-            whileHover={hoverEffect}
-            className="w-40 h-40 sm:w-52 sm:h-52 rounded-full shadow-lg bg-cover bg-center"
-            style={{
-              backgroundImage: "url('/images/reservation/4.png')",
-            }}
-          ></motion.div>
+          {imageLinks.map((image, index) => {
+            ImageLoader(image[index]);
+            return (
+              <motion.div
+                key={index}
+                variants={floatVariant}
+                animate="float"
+                whileHover={hoverEffect}
+                className="w-40 h-40 sm:w-52 sm:h-52 rounded-full shadow-lg bg-cover bg-center"
+                style={{
+                  backgroundImage: `url('${image}')`,
+                }}
+              ></motion.div>
+            );
+          })}
         </motion.div>
 
         {/* Philosophy Section */}
@@ -151,6 +133,8 @@ const AboutPage: React.FC = () => {
             <strong>Contact:</strong> (123) 456-7890
           </p>
         </motion.div>
+
+        {/* Location Section */}
         <motion.div
           className="mt-16 px-8 sm:px-24 lg:px-48 text-center"
           initial="hidden"
@@ -177,5 +161,13 @@ const AboutPage: React.FC = () => {
     </MainLayout>
   );
 };
+
+function AboutPage() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <PageToRender />
+    </Suspense>
+  );
+}
 
 export default AboutPage;

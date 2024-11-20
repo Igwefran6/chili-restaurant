@@ -8,7 +8,7 @@ import ScrollingImageGrid from "../components/ScrollingImageGrid";
 import Chefs from "../components/Chef";
 import CustomerReviews from "../components/CustomerReview";
 import FAQ from "../components/FAQ";
-import Counter from "../components/Counter";
+import Achievements from "../components/Achievements";
 
 const HomePage: React.FC = () => {
   return (
@@ -29,12 +29,12 @@ const PageToRender: React.FC = () => {
   return (
     <div className="poppins-regular overflow-hidden">
       <MainLayout>
-        <Hero />
-        <Welcome />
+        <Hero src="/images/food.png" />
+        <Welcome src="/images/food2.png" />
         <div className="bg-gradient-to-br from-gray-100 to-gray-200">
           <Chefs />
           <CustomerReviews />
-          <Counter />
+          <Achievements />
           <FAQ />
           <ScrollingImageGrid />
         </div>

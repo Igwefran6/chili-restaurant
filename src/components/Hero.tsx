@@ -2,8 +2,15 @@ import React from "react";
 import CTAButton from "./CTAButton";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { ImageLoader } from "../utils/ImageLoader";
 
-const Hero: React.FC = () => {
+interface ImageDisplayProps {
+  src: string;
+  alt?: string;
+}
+
+const Hero: React.FC<ImageDisplayProps> = ({ src }) => {
+  ImageLoader(src);
   const navigate = useNavigate();
   return (
     <div className="w-screen lg:h-[80vh] bg-gradient-to-r from-brand to-brand-dark flex flex-col lg:flex-row">
@@ -30,7 +37,7 @@ const Hero: React.FC = () => {
           transition={{ duration: 1 }}
           viewport={{ once: true }}
           className=""
-          src="/images/food.png"
+          src={src}
           alt=""
         />
       </div>
