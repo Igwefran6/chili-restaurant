@@ -36,7 +36,7 @@ const PageToRender: React.FC = () => {
     <MainLayout>
       <div className="flex flex-col lg:flex-row justify-center items-center gap-8 p-8 lg:p-16 bg-gradient-to-br from-orange-100 via-white to-yellow-50 min-h-screen">
         {/* Images Grid */}
-        <motion.div className="w-1/2 h-full grid-cols-2 p-8 gap-4 place-items-center hidden lg:grid">
+        <motion.div className="w-1/2 h-full grid-cols-2 p-8 gap-4 place-items-center lg:grid">
           {images.map((image, index) => {
             ImageLoader(image.src);
             return (
