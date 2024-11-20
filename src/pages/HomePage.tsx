@@ -7,7 +7,7 @@ import MainLayout from "../layouts/MainLayout";
 import ScrollingImageGrid from "../components/ScrollingImageGrid";
 import Chefs from "../components/Chef";
 import CustomerReviews from "../components/CustomerReview";
-import FAQ from "../components/Faq";
+import FAQ from "../components/FAQ";
 import Counter from "../components/Counter";
 
 const HomePage: React.FC = () => {
