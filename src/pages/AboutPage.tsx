@@ -80,7 +80,7 @@ const PageToRender: React.FC = () => {
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className="relative flex-wrap justify-center gap-8 mt-12 px-8 hidden lg:flex"
+          className="relative flex-wrap justify-center gap-8 mt-12 px-8 flex"
         >
           {imageLinks.map((image, index) => {
             ImageLoader(image[index]);
@@ -99,8 +99,8 @@ const PageToRender: React.FC = () => {
                 <motion.div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-300"></motion.div>
 
                 {/* Text to display on hover */}
-                <motion.div className="absolute inset-0 flex justify-center items-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <p className="text-lg font-semibold">{text[index]}</p>
+                <motion.div className="absolute inset-0 flex justify-center items-center text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <p className="lg:text-lg font-semibold">{text[index]}</p>
                 </motion.div>
               </motion.div>
             );

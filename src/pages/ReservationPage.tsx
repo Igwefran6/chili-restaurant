@@ -46,7 +46,7 @@ const PageToRender: React.FC = () => {
                 whileInView={{ x: 0, opacity: 1 }}
                 transition={{ delay: image.delay, duration: 0.5 }}
                 viewport={{ once: true }}
-                className={`bg-white overflow-hidden h-64 w-64 rounded shadow relative z-[${index}]`}
+                className={`bg-white overflow-hidden h-64 w-64 rounded shadow relative mb-4 z-[${index}]`}
               >
                 <span className="absolute z-10 bottom-1/2 left-1/2 translate-y-1/2 -translate-x-1/2 text-brand drop-shadow-2xl flex justify-center text-lg w-full font-bold">
                   {text[index]}
