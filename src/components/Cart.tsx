@@ -121,7 +121,7 @@ const Cart: React.FC<{
       )}
       <motion.div
         whileHover={{ scale: 0.8, cursor: "pointer" }}
-        whileTap={{ scale: 0.5 }}
+        whileTap={{ scale: 0.8 }}
         onClick={() => setShowCart(false)}
         className="absolute top-4 right-4"
       >
