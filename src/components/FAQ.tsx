@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  ArrowBigDown,
-  ArrowDown,
-  ArrowDown10,
-  ArrowDownCircle,
-} from "lucide-react";
+import { ArrowDownCircle } from "lucide-react";
 
 const FAQ: React.FC = () => {
   const faqs = [

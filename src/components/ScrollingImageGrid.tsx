@@ -19,8 +19,8 @@ const ScrollingImageGrid: React.FC = () => {
 
   return (
     <motion.div
-      initial={{ y: 100, opacity: 0.2 }}
-      whileInView={{ y: 0, opacity: 1 }}
+      initial={{ opacity: 0.2 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 1.5 }}
       className="relative overflow-hidden h-fit w-full py-16"
