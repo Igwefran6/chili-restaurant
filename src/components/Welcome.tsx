@@ -38,7 +38,7 @@ const Welcome: React.FC<ImageDisplayProps> = ({ src }) => {
         initial={{ y: 100, rotate: 0, opacity: 0.5 }}
         whileInView={{ y: 0, rotate: -4, opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.8 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
         whileHover={{ cursor: "pointer" }}
         className="lg:w-1/2 p-4 h-fit bg-accent-beige border shadow-xl rounded-lg"
       >

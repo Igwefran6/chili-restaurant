@@ -36,6 +36,12 @@ const PageToRender: React.FC = () => {
     "/images/reservation/3.png",
     "/images/reservation/4.png",
   ];
+  const text = [
+    "Serene Environ",
+    "Delicious Meals",
+    "Made with Love",
+    "A Smile guaranteed",
+  ];
 
   return (
     <MainLayout>
@@ -74,7 +80,7 @@ const PageToRender: React.FC = () => {
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className="relative flex flex-wrap justify-center gap-8 mt-12 px-8"
+          className="relative flex-wrap justify-center gap-8 mt-12 px-8 hidden lg:flex"
         >
           {imageLinks.map((image, index) => {
             ImageLoader(image[index]);
@@ -84,11 +90,19 @@ const PageToRender: React.FC = () => {
                 variants={floatVariant}
                 animate="float"
                 whileHover={hoverEffect}
-                className="w-40 h-40 sm:w-52 sm:h-52 rounded-full shadow-lg bg-cover bg-center"
+                className="relative w-40 h-40 sm:w-52 sm:h-52 rounded-full shadow-lg bg-cover bg-center overflow-hidden group"
                 style={{
                   backgroundImage: `url('${image}')`,
                 }}
-              ></motion.div>
+              >
+                {/* Darkening effect on hover using ::before pseudo-element */}
+                <motion.div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-300"></motion.div>
+
+                {/* Text to display on hover */}
+                <motion.div className="absolute inset-0 flex justify-center items-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <p className="text-lg font-semibold">{text[index]}</p>
+                </motion.div>
+              </motion.div>
             );
           })}
         </motion.div>

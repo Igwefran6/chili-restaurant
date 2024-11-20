@@ -14,10 +14,17 @@ const PageToRender: React.FC = () => {
   const [specialRequests, setSpecialRequests] = useState("");
 
   const images = [
-    { src: "/images/reservation/1.png", scale: 1.2, rotate: -8, delay: 0.4 },
-    { src: "/images/reservation/2.png", scale: 1, rotate: 16, delay: 0.2 },
-    { src: "/images/reservation/3.png", scale: 0.9, rotate: 35, delay: 0.8 },
-    { src: "/images/reservation/4.png", scale: 1, rotate: 8, delay: 0 },
+    { src: "/images/reservation/1.png", delay: 0 },
+    { src: "/images/reservation/2.png", delay: 0.4 },
+    { src: "/images/reservation/3.png", delay: 0.8 },
+    { src: "/images/reservation/4.png", delay: 1.2 },
+  ];
+
+  const text = [
+    "Serene Environ",
+    "Delicious Meals",
+    "Made with Love",
+    "A Smile guaranteed",
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -35,15 +42,19 @@ const PageToRender: React.FC = () => {
             return (
               <motion.div
                 key={index}
-                initial={{ scale: 0, rotate: 0 }}
-                whileInView={{ scale: image.scale, rotate: image.rotate }}
-                transition={{ delay: image.delay }}
+                initial={{ x: -200, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ delay: image.delay, duration: 0.5 }}
                 viewport={{ once: true }}
-                className="bg-white overflow-hidden h-64 w-64 rounded shadow"
+                className={`bg-white overflow-hidden h-64 w-64 rounded shadow relative z-[${index}]`}
               >
+                <span className="absolute z-10 bottom-1/2 left-1/2 translate-y-1/2 -translate-x-1/2 text-brand drop-shadow-2xl flex justify-center text-lg w-full font-bold">
+                  {text[index]}
+                </span>
+
                 <motion.img
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.5 }}
+                  whileHover={{ opacity: 0.5 }} // Fading effect on hover
+                  transition={{ duration: 0.5 }} // Smooth transition for opacity
                   className="bg-cover rounded-xl h-full w-full border-white border-8"
                   src={image.src}
                   alt={`Reservation Image ${index + 1}`}
