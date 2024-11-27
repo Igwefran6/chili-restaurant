@@ -1,16 +1,21 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import MainLayout from "../layouts/MainLayout";
-import { useShoppingContext } from "../hooks/useShoppingContext";
-import ScrollingImageGrid from "../components/ScrollingImageGrid";
-import Loading from "./Loading";
-import { ImageLoader } from "../utils/ImageLoader";
+import MainLayout from "../layouts/MainLayout"; // Layout wrapper for consistent page structure
+import { useShoppingContext } from "../hooks/useShoppingContext"; // Custom hook for shopping cart state
+import ScrollingImageGrid from "../components/ScrollingImageGrid"; // Animated image grid component
+import Loading from "./Loading"; // Loading spinner for suspense fallback
+import { ImageLoader } from "../utils/ImageLoader"; // Utility for preloading images
 
+// Main page content logic and rendering
 const PageToRender: React.FC = () => {
+  // State for popup visibility and message
   const [showPopup, setShowPopup] = useState(false);
   const [popupLabel, setPopupLabel] = useState("");
+
+  // Shopping context for managing cart items
   const { state, dispatch } = useShoppingContext();
 
+  // Mock menu items with details
   const menuItems = [
     {
       id: "123e4567e89b12d3",
@@ -49,23 +54,24 @@ const PageToRender: React.FC = () => {
     },
   ];
 
-  // Animation variants for cards
+  // Framer Motion animation variants for card effects
   const cardAnimation = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 20 }, // Initial state
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, delay: i * 0.2 },
+      transition: { duration: 0.5, delay: i * 0.2 }, // Staggered animation
     }),
-    hover: { scale: 1.05, boxShadow: "0px 10px 20px rgba(0,0,0,0.1)" },
+    hover: { scale: 1.05, boxShadow: "0px 10px 20px rgba(0,0,0,0.1)" }, // Hover effect
   };
 
-  // Animation variant for popup
+  // Framer Motion animation for popup notification
   const popupAnimation = {
     hidden: { opacity: 0, y: 50, x: "50%" },
     visible: { opacity: 1, y: 0, x: "50%" },
   };
 
+  // Close popup automatically after a set time
   useEffect(() => {
     if (showPopup) {
       const timer = setTimeout(() => setShowPopup(false), 1000);
@@ -73,13 +79,14 @@ const PageToRender: React.FC = () => {
     }
   }, [showPopup]);
 
+  // Function to handle adding items to the cart
   const handleAddToCart = (item: (typeof menuItems)[0]) => {
-    const payloadItem = { ...item, quantity: 1 };
+    const payloadItem = { ...item, quantity: 1 }; // Add quantity for cart
     const exists = state.some((cartItem) => cartItem.id === payloadItem.id);
 
     setPopupLabel(exists ? "Already in cart" : "Added to cart");
-    if (!exists) dispatch({ type: "ADDTOCART", payload: payloadItem });
-    setShowPopup(true);
+    if (!exists) dispatch({ type: "ADDTOCART", payload: payloadItem }); // Update cart state
+    setShowPopup(true); // Show popup notification
   };
 
   return (
@@ -119,7 +126,7 @@ const PageToRender: React.FC = () => {
         {/* Menu Items */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {menuItems.map((item, index) => {
-            ImageLoader(item.image);
+            ImageLoader(item.image); // Preload images for better performance
             return (
               <motion.div
                 key={item.id}
@@ -131,7 +138,7 @@ const PageToRender: React.FC = () => {
                 custom={index}
                 variants={cardAnimation}
               >
-                {/* Image */}
+                {/* Item Image */}
                 <motion.div
                   className="h-40 w-full bg-cover bg-center rounded-lg mb-4"
                   style={{ backgroundImage: `url(${item.image})` }}
@@ -139,7 +146,7 @@ const PageToRender: React.FC = () => {
                   aria-label={item.name}
                 ></motion.div>
 
-                {/* Info */}
+                {/* Item Info */}
                 <h2 className="text-2xl font-semibold text-brand mb-2">
                   {item.name}
                 </h2>
@@ -161,12 +168,15 @@ const PageToRender: React.FC = () => {
             );
           })}
         </div>
+
+        {/* Scrolling Image Grid */}
         <ScrollingImageGrid />
       </div>
     </MainLayout>
   );
 };
 
+// Wrapper component with suspense fallback for lazy loading
 function MenuPage() {
   return (
     <Suspense fallback={<Loading />}>

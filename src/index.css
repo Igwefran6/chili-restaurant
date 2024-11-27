@@ -1,8 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@tailwind base; /* Import the base styles provided by Tailwind */
+@tailwind components; /* Import the component styles from Tailwind */
+@tailwind utilities; /* Import the utility classes from Tailwind */
 
+/* Custom font-family and weight definitions using Poppins font family */
 @layer {
+  /* Poppins Font Classes (normal style) */
   .poppins-thin {
     font-family: "Poppins", sans-serif;
     font-weight: 100;
@@ -57,6 +59,7 @@
     font-style: normal;
   }
 
+  /* Poppins Font Classes (italic style) */
   .poppins-thin-italic {
     font-family: "Poppins", sans-serif;
     font-weight: 100;
@@ -111,20 +114,24 @@
     font-style: italic;
   }
 
+  /* Custom Font Classes for "Protest Riot" Font */
   .protest-riot-regular {
     font-family: "Protest Riot", sans-serif;
     font-weight: 400;
     font-style: normal;
   }
 
+  /* Custom Font Class for "Sour Gummy" Font with font variation settings */
   .sour-gummy-font {
     font-family: "Sour Gummy", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-    font-variation-settings: "wdth" 100;
+    font-variation-settings: "wdth" 100; /* Custom width setting */
   }
+
+  /* Utility to disable text selection */
   .no-copy {
-    user-select: none;
+    user-select: none; /* Prevents the user from selecting and copying the text */
   }
 }
