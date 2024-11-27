@@ -68,7 +68,7 @@ function ShoppingContextProvider({ children }: { children: ReactNode }) {
     <ShoppingContext.Provider value={{ state, dispatch }}>
       {" "}
       {/* Providing the state and dispatch function to the context */}
-      {children} // Rendering the children components within the provider
+      {children} {/* Rendering the children components within the provider */}
     </ShoppingContext.Provider>
   );
 }
